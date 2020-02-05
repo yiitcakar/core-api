@@ -44,20 +44,22 @@ class PackageManagerImpl implements PackageManager
 				.collect(Collectors.toSet());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Collection<Class<? extends T>> getAllClassesExtendsClass(Class<T> subType, String... packages) {
 		return getAllClasses(packages)
 				.stream()
-				.filter(cls -> cls.isAssignableFrom(subType))
+				.filter(cls -> subType.isAssignableFrom(cls))
 				.map(cls -> (Class<T>)cls)
 				.collect(Collectors.toSet());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Collection<Class<? extends T>> getAllClassesImplementsInterface(Class<T> subType, String... packages) {
 		return getAllClasses(packages)
 				.stream()
-				.filter(cls -> cls.isAssignableFrom(subType))
+				.filter(cls -> subType.isAssignableFrom(cls))
 				.map(cls -> (Class<T>)cls)
 				.collect(Collectors.toSet());
 	}
