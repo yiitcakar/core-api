@@ -1,4 +1,4 @@
-package tr.com.vatos.core.reflections;
+package tr.com.vatos.core.reflections.packages;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,8 +8,6 @@ import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -20,6 +18,7 @@ import java.util.stream.Collectors;
 
 import sun.net.www.protocol.file.FileURLConnection;
 import tr.com.vatos.core.common.utils.NullCheckUtils;
+import tr.com.vatos.core.reflections.packages.actions.SourceAcceptanceAction;
 
 
 class PackageManagerImpl implements PackageManager
@@ -188,7 +187,6 @@ class PackageManagerImpl implements PackageManager
 	
 	private void checkJarFile(JarURLConnection connection, String pckgname, Map<String,Class<?>> classMap, SourceAcceptanceAction action) throws ClassNotFoundException, IOException 
 	{
-		StringBuilder sb = new StringBuilder();
 	    final JarFile jarFile = connection.getJarFile();
 	    final Enumeration<JarEntry> entries = jarFile.entries();
 	    String name;
@@ -198,7 +196,7 @@ class PackageManagerImpl implements PackageManager
 	        if (name.contains(".class")) 
 	        {
 	            name = name.substring(0, name.length() - 6).replace('/', '.');
-	            if (name.contains(pckgname+".")) 
+	            if (name.contains(pckgname)) 
 	            {
 	            	try 
 	            	{
@@ -215,7 +213,6 @@ class PackageManagerImpl implements PackageManager
 	            }
 	        }
 	    }
-	    Files.write(Paths.get("log.txt"), sb.toString().getBytes());
 	}
 
 	

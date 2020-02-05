@@ -1,4 +1,4 @@
-package tr.com.vatos.core.reflections;
+package tr.com.vatos.core.reflections.packages;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;

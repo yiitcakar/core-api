@@ -1,4 +1,4 @@
-package tr.com.vatos.core.reflections;
+package tr.com.vatos.core.reflections.packages.actions;
 
 public interface SourceAcceptanceAction 
 {
