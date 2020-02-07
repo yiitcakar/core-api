@@ -15,6 +15,11 @@
 			<artifactId>reflections-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>tr.com.vatos</groupId>
+			<artifactId>builder-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	
 </project>

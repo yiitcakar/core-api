@@ -1,60 +1,52 @@
 package tr.com.vatos.core.injection.v1.application.builder;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import tr.com.vatos.core.common.utils.NullCheckUtils;
-import tr.com.vatos.core.injection.v1.annotations.Configuration;
+import tr.com.vatos.core.builder.impl.SimpleBuilder;
+import tr.com.vatos.core.builder.types.BuilderContext;
 import tr.com.vatos.core.injection.v1.application.Application;
-import tr.com.vatos.core.reflections.classes.ClassManager;
+import tr.com.vatos.core.injection.v1.context.ApplicationContext;
+import tr.com.vatos.core.injection.v1.context.ContextType;
+import tr.com.vatos.core.injection.v1.context.simple.builder.SimpleApplicationContextBuilder;
+import tr.com.vatos.core.injection.v1.context.web.builder.WebApplicationContextBuilder;
 
-public class ApplicationBuilder {
+import java.util.HashMap;
+import java.util.Map;
+
+public class ApplicationBuilder extends SimpleBuilder<Application> {
 	
-	private final ClassManager classManager;
-	private final Set<Class<?>> configurations;
-	
+	private final ApplicationBuildingContext applicationBuildingContext;
+
 	private ApplicationBuilder() {
-		this.configurations = new HashSet<>();
-		this.classManager = ClassManager.instance();
+		this.applicationBuildingContext = new ApplicationBuildingContext();
 	}
 	
 	public static ApplicationBuilder newInstance() {return new ApplicationBuilder();}
-	
-	public ApplicationBuilder addConfiguration(Class<?> cls) 
-	{
-		addConfigurationClass(cls);
-		return this;
+
+	public WebApplicationContextBuilder webContext(){
+		return new WebApplicationContextBuilder(this,this.applicationBuildingContext);
 	}
-	
-	private void addConfigurationClass(Class<?> cls) 
-	{
-		if(classManager.classHasAnnotation(cls, Configuration.class)) 
-		{
-			this.configurations.add(cls);
-			Configuration configuration = classManager.getAnnotationFromClassWithoutNullCheck(cls, Configuration.class);
-			if(NullCheckUtils.isNotArrayEmpty(configuration.imports()))
-			{
-				for(Class<?> imported : configuration.imports())
-				{
-					addConfiguration(imported);
-				}
-			}
-		}
-		else
-		{
-			//TODO throw exception!
-			System.out.println("not added " + cls.getSimpleName());
-		}
+
+	public SimpleApplicationContextBuilder simpleContext(){
+		return new SimpleApplicationContextBuilder(this,this.applicationBuildingContext);
 	}
-	
+
 	public ApplicationBuilder status()
 	{
-		configurations.stream().forEach(System.out::println);
+		//configurations.stream().forEach(System.out::println);
 		return this;
 	}
-	
-	public Application build() 
-	{
+
+
+	@Override
+	public Application build() {
 		return null;
+	}
+
+	public static class ApplicationBuildingContext implements BuilderContext
+	{
+		private final Map<ContextType, ApplicationContext> contextMap = new HashMap<ContextType, ApplicationContext>();
+
+		public void put(ContextType type,ApplicationContext applicationContext){
+			this.contextMap.put(type,applicationContext);
+		}
 	}
 }
