@@ -6,10 +6,13 @@ import tr.com.vatos.core.injection.v1.annotations.Configuration;
 import tr.com.vatos.core.injection.v1.application.builder.ApplicationBuilder;
 import tr.com.vatos.core.injection.v1.context.ApplicationContext;
 import tr.com.vatos.core.injection.v1.context.ContextType;
+import tr.com.vatos.core.injection.v1.context.initilize.ApplicationContextInitializeTemplate;
 import tr.com.vatos.core.reflections.classes.ClassManager;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public abstract class AbstractApplicationContextBuilder<T extends AbstractApplicationContextBuilder> extends OuterChildBuilder<ApplicationBuilder,ApplicationBuilder.ApplicationBuildingContext> {
 
@@ -24,7 +27,7 @@ public abstract class AbstractApplicationContextBuilder<T extends AbstractApplic
         this.configurations = new HashSet<Class<?>>();
     }
 
-    protected abstract ApplicationContext buildApplicationContext();
+    protected abstract ApplicationContext buildApplicationContext(Map<String,Object> beanMap);
 
     public T addConfiguration(Class<?> cls)
     {
@@ -53,10 +56,16 @@ public abstract class AbstractApplicationContextBuilder<T extends AbstractApplic
         }
     }
 
-
-
     @Override
     protected void beforeEnd() {
-        getContext().put(this.contextType,buildApplicationContext());
+        ApplicationContextInitializeTemplate applicationContextInitializeTemplate = new ApplicationContextInitializeTemplate();
+        Map<String,Object> beanMap = new HashMap<String,Object>();
+        for(Class<?> configClass : this.configurations)
+        {
+            applicationContextInitializeTemplate.init(beanMap,configClass);
+        }
+        getContext().put(this.contextType,buildApplicationContext(beanMap));
     }
+
+
 }

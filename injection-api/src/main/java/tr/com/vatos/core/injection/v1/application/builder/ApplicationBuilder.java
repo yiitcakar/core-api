@@ -3,6 +3,7 @@ package tr.com.vatos.core.injection.v1.application.builder;
 import tr.com.vatos.core.builder.impl.SimpleBuilder;
 import tr.com.vatos.core.builder.types.BuilderContext;
 import tr.com.vatos.core.injection.v1.application.Application;
+import tr.com.vatos.core.injection.v1.constants.enums.context.DefaultContextTypesEnum;
 import tr.com.vatos.core.injection.v1.context.ApplicationContext;
 import tr.com.vatos.core.injection.v1.context.ContextType;
 import tr.com.vatos.core.injection.v1.context.simple.builder.SimpleApplicationContextBuilder;
@@ -31,7 +32,14 @@ public class ApplicationBuilder extends SimpleBuilder<Application> {
 
 	public ApplicationBuilder status()
 	{
-		//configurations.stream().forEach(System.out::println);
+		this.applicationBuildingContext
+				.contextMap
+				.entrySet()
+				.forEach(entry->
+				{
+					System.out.println(entry.getKey().toString());
+					entry.getValue().getAllBeans().forEach(System.out::println);
+				});
 		return this;
 	}
 
@@ -47,6 +55,10 @@ public class ApplicationBuilder extends SimpleBuilder<Application> {
 
 		public void put(ContextType type,ApplicationContext applicationContext){
 			this.contextMap.put(type,applicationContext);
+		}
+
+		public ApplicationContext getContext(ContextType type){
+			return this.contextMap.get(type);
 		}
 	}
 }

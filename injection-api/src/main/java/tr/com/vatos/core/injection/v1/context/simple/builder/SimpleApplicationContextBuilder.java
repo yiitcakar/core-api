@@ -16,8 +16,7 @@ public class SimpleApplicationContextBuilder extends AbstractApplicationContextB
     }
 
     @Override
-    protected ApplicationContext buildApplicationContext() {
-        Map<String,Object> beanMap = new HashMap<>();
+    protected ApplicationContext buildApplicationContext(Map<String,Object> beanMap) {
         return new SimpleApplicationContext.Impl(super.contextType,beanMap){};
     }
 

@@ -3,6 +3,7 @@ package tr.com.vatos.core.injection.v1.context.impl;
 import tr.com.vatos.core.injection.v1.context.ApplicationContext;
 import tr.com.vatos.core.injection.v1.context.ContextType;
 
+import java.util.Collection;
 import java.util.Map;
 
 public abstract class AbstractApplicationContextImpl implements ApplicationContext {
@@ -28,5 +29,10 @@ public abstract class AbstractApplicationContextImpl implements ApplicationConte
             //TODO throw bean not found exception!
             return (T) null;
         }
+    }
+
+    @Override
+    public Collection<Object> getAllBeans() {
+        return this.beanMap.values();
     }
 }
