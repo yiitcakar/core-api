@@ -17,6 +17,7 @@
   	<module>common-utils</module>
   	<module>injection-api</module>
   	<module>builder-api</module>
+      <module>dynamic-proxy-api</module>
   </modules>
   
 </project>

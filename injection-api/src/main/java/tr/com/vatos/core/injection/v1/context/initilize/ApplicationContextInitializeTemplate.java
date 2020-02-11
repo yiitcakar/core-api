@@ -7,6 +7,8 @@ import tr.com.vatos.core.reflections.classes.ClassManager;
 import tr.com.vatos.core.reflections.packages.PackageManager;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Proxy;
 import java.util.Map;
 
 public class ApplicationContextInitializeTemplate
@@ -69,6 +71,7 @@ public class ApplicationContextInitializeTemplate
                         {
                             try
                             {
+                                Parameter[] parameters = method.getParameters();
                                 Object bean = method.invoke(configObject);
                                 beanMap.put(bean.getClass().getName(),bean);
                             } catch (IllegalAccessException e) {

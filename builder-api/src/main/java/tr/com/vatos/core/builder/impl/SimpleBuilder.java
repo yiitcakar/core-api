@@ -5,5 +5,7 @@ import tr.com.vatos.core.builder.types.Builder;
 
 public abstract class SimpleBuilder<I> implements Builder, BuildInstance<I>
 {
-    private I instance;
+    protected I instance;
+
+
 }

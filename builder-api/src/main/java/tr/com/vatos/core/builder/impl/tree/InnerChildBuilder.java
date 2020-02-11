@@ -1,14 +1,14 @@
-package tr.com.vatos.core.builder.impl;
+package tr.com.vatos.core.builder.impl.tree;
 
 import tr.com.vatos.core.builder.behaviours.HasContext;
 import tr.com.vatos.core.builder.types.Builder;
 import tr.com.vatos.core.builder.types.BuilderContext;
 
-public abstract class InnerCHildBuilder<P extends Builder,C extends BuilderContext> extends ChildBuilder<P> implements HasContext<C> {
+public abstract class InnerChildBuilder<P extends Builder,C extends BuilderContext> extends ChildBuilder<P> implements HasContext<C> {
 
     protected final C context;
 
-    protected InnerCHildBuilder(P parent,C context) {
+    protected InnerChildBuilder(P parent, C context) {
         super(parent);
         this.context = context;
     }

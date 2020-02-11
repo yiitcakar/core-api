@@ -1,4 +1,4 @@
-package tr.com.vatos.core.builder.impl;
+package tr.com.vatos.core.builder.impl.tree;
 
 import tr.com.vatos.core.builder.behaviours.HasParent;
 import tr.com.vatos.core.builder.types.Builder;

@@ -1,6 +1,6 @@
 package tr.com.vatos.core.injection.v1.context.builder;
 
-import tr.com.vatos.core.builder.impl.OuterChildBuilder;
+import tr.com.vatos.core.builder.impl.tree.OuterChildBuilder;
 import tr.com.vatos.core.common.utils.NullCheckUtils;
 import tr.com.vatos.core.injection.v1.annotations.Configuration;
 import tr.com.vatos.core.injection.v1.application.builder.ApplicationBuilder;
