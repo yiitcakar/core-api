@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public interface PackageManager 
 {
-	public static PackageManager instance() { return PackageManagerImpl.instance; }
+	static PackageManager instance() { return PackageManagerImpl.instance; }
 	
 	Collection<Class<?>> getAllClasses(String... packages);
 	Collection<Class<?>> getAllClassesWithAnnotation(Class<? extends Annotation> annotation, String... packages);

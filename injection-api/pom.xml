@@ -20,6 +20,11 @@
 			<artifactId>builder-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>tr.com.vatos</groupId>
+			<artifactId>dynamic-proxy-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	
 </project>

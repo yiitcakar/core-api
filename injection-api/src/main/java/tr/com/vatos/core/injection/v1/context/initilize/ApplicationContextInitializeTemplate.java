@@ -1,6 +1,8 @@
 package tr.com.vatos.core.injection.v1.context.initilize;
 
 import tr.com.vatos.core.common.utils.NullCheckUtils;
+import tr.com.vatos.core.dynamicproxy.action.ProxyAction;
+import tr.com.vatos.core.dynamicproxy.constants.enums.ProxyActionDecision;
 import tr.com.vatos.core.injection.v1.annotations.Bean;
 import tr.com.vatos.core.injection.v1.annotations.Configuration;
 import tr.com.vatos.core.reflections.classes.ClassManager;
@@ -8,7 +10,6 @@ import tr.com.vatos.core.reflections.packages.PackageManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.Proxy;
 import java.util.Map;
 
 public class ApplicationContextInitializeTemplate
@@ -99,6 +100,35 @@ public class ApplicationContextInitializeTemplate
     protected void executeInitMethods(final Map<String,Object> beanMap)
     {
 
+    }
+
+    private static final class BeanInitializationProxyAction implements ProxyAction
+    {
+        private final Map<String,Object> beanMap;
+        private String name;
+
+        protected BeanInitializationProxyAction(Map<String,Object> beanMap){
+            this.beanMap = beanMap;
+        }
+
+        @Override
+        public ProxyActionDecision makeDecision(Object instance, String methodName, Class<?> returnType, Object... args) {
+            this.name = returnType.getName();
+            return beanMap.containsKey(name)
+                    ? ProxyActionDecision.OR_ELSE
+                    : ProxyActionDecision.CALL_SUPER;
+        }
+
+        @Override
+        public Object callSuperThenReturn(Object object) {
+            beanMap.put(name,object);
+            return beanMap.get(name);
+        }
+
+        @Override
+        public Object orElseReturn() {
+            return beanMap.get(name);
+        }
     }
 
 

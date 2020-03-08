@@ -3,7 +3,6 @@ package tr.com.vatos.core.injection.v1.application.builder;
 import tr.com.vatos.core.builder.impl.SimpleBuilder;
 import tr.com.vatos.core.builder.types.BuilderContext;
 import tr.com.vatos.core.injection.v1.application.Application;
-import tr.com.vatos.core.injection.v1.constants.enums.context.DefaultContextTypesEnum;
 import tr.com.vatos.core.injection.v1.context.ApplicationContext;
 import tr.com.vatos.core.injection.v1.context.ContextType;
 import tr.com.vatos.core.injection.v1.context.simple.builder.SimpleApplicationContextBuilder;

@@ -1,10 +1,12 @@
 package tr.com.vatos.core.reflections.classes;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import tr.com.vatos.core.common.utils.NullCheckUtils;
@@ -43,6 +45,18 @@ class ClassManagerImpl implements ClassManager
 					? Arrays.asList(cls.getDeclaredMethods())
 						.stream()
 						.filter(method -> NullCheckUtils.isNotObjectEmpty(method.getAnnotation(ant)))
+						.collect(Collectors.toList())
+					: Collections.emptyList()
+				: Collections.emptyList();
+	}
+
+	@Override
+	public List<Field> getFieldsFromClassWithAnnotation(Class<?> cls, Class<? extends Annotation> ant) {
+		return NullCheckUtils.isNotObjectEmpty(cls)
+				? NullCheckUtils.isNotObjectEmpty(ant)
+					? Arrays.asList(cls.getDeclaredFields())
+						.stream()
+						.filter(field -> NullCheckUtils.isNotObjectEmpty(field.getAnnotation(ant)))
 						.collect(Collectors.toList())
 					: Collections.emptyList()
 				: Collections.emptyList();
