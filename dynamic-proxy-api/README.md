@@ -1,11 +1,6 @@
 Simple Example
 
-import tr.com.vatos.core.dynamicproxy.action.ProxyAction;
-import tr.com.vatos.core.dynamicproxy.builder.DynamicProxyBuilder;
-import tr.com.vatos.core.dynamicproxy.constants.enums.ProxyActionDecision;
 
-public class DynamicClassTestAppV2 {
-    public static void main(String[] args) {
         Boo booProxy = DynamicProxyBuilder.withClass(Boo.class)
                 .allMethods()
                 .proxyAction(new ProxyAction() {
@@ -27,16 +22,7 @@ public class DynamicClassTestAppV2 {
                     }
                 }).build();
 
-        System.out.println(booProxy.foo());
-    }
 
-    public static class Boo
-    {
-        public String foo(){
-           return "foo";
-        }
-    }
-}
 
 Output:
 
